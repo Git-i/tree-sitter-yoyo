@@ -1,18 +1,84 @@
-Polarity: enum = {
-    Positive = 0,
-    Negative = 1,
-    flipped: fn (this) -> Polarity = return Polarity::from_int(1 - std::as_int(p)).value();
+//app: module = APP
+
+Node: struct::<T> = {
+	data: T,
+	next: (^Node::<T>)?
 }
-operator: <=>(v: &Vec2, a: &Vec2) -> core::CmpEq = {
-    return v.x == a.x && v.y == a.y && v.z == a.z;
+LinkedList: struct::<T> = {
+	first: (^Node::<T>)?,
+	new: fn -> This = return This{ .first = null };
+	append: fn (&mut this, value: T) = {
+		if |val| (this.first) {
+			last: mut = val;
+			//implement options as truthy values and break
+			should_loop: mut = true;
+			while (should_loop) {
+				if |nxt| (last.next) last = nxt;
+				else should_loop = false;
+			}
+			last.next = gcnew Node::<T>{ .data = value, .next = null };
+		} else {
+			this.first = gcnew Node::<T>{ .data = value, .next = null };
+		}
+	}
 }
-Iterator: interface = {
-    lol: fn;
-    lope: fn (&mut this);
+LinkedListIterator: struct:&::<T> = {
+	curr: (^Node::<T>)?,
+	impl core::Iterator::<&T>
+	{
+		next: fn (&mut this) -> (&T)? = {
+			if |node| (this.curr) {
+				this.curr = node.next;
+				return &node.data;
+			}
+			else return null;
+		}
+	}
 }
-Int: alias = i32;
-main: fn (n: i32, b: i32?, c: &i32?) -> (i32, i64) = {
-    a: (i32, i32) = 100;
-    b := 200;
-    b: mut = 2;
+
+EnumerateIter: struct:&::<T, O> = {
+	actual_iter: T,
+	idx: u64,
+	impl core::Iterator::<(u64, O)> {
+		next: fn (&mut this) -> (u64, O)? = {
+			if |nxt| (this.actual_iter.core::Iterator::<O>::next()) {
+				this.idx = this.idx + 1;
+				return (this.idx, nxt);
+			}
+			else return null;
+		}
+	}
+}
+
+ChainIter: struct:&::<A, B, O> = 
+{
+	first_iter: A,
+	second_iter: B,
+	impl core::Iterator::<O> {
+		next: fn (&mut this) -> O? = {
+			if |nxt| (this.first_iter.core::Iterator::<O>::next()) return nxt;
+			else return this.second_iter.core::Iterator::<O>::next();
+		}
+	}		
+}
+iter: fn::<T> (list: &LinkedList::<T>) -> LinkedListIterator::<T>
+	= return LinkedListIterator::<T> { .curr = list.first };
+
+enumerate: fn::<T: impl core::Iterator::<O>, O> (iter: T) ->
+	EnumerateIter::<T, O> = return EnumerateIter::<T, O>{.actual_iter = iter, .idx = 0};
+
+chain: fn::<A: impl core::Iterator::<O>, B: impl core::Iterator::<O>, O> 
+	(first: A, snd: B) -> ChainIter::<A, B, O> = return ChainIter::<A, B, O>{.first_iter = first, .second_iter = snd};
+main: fn = {
+	a: mut = LinkedList::<str>::new();
+	a.append("Hello");
+	a.append("World");
+	a.append("Stuff");
+	a.append("Others");
+	b: mut = LinkedList::<str>::new();
+	b.append("Second List");
+	b.append("Second List Again");
+	for (lol in a.iter().chain(b.iter()).enumerate()) {
+		app::func(&"${lol.0}: ${*lol.1}");
+	}
 }

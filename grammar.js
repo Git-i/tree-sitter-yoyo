@@ -9,10 +9,15 @@
 
 module.exports = grammar({
     name: "yoyo",
+    extras: $ => [
+        /\s/,
+        $.line_comment,
+    ],
     word: $ => $.identifier,
     rules: {
     // For now operator overload is module scoped
         source_file: $ => repeat(choice($.declaration, $.operator_overload)),
+        line_comment: $ => seq('//', /.*/),
         attr_list: $ => seq('#(', $.identifier, repeat(seq(',', $.identifier)), ')'),
         declaration: $ => seq(
             optional($.attr_list),
@@ -26,14 +31,29 @@ module.exports = grammar({
             $.identifier,
             ':',
             'fn',
+            optional($.generic_clause),
             optional($.function_sig)),
         function_decl: $ => seq(
             $._function_no_body,
             '=',
             $._statement
         ),
+        impl_block: $ => seq(
+            'impl', $._type, '{',
+            repeat($.function_decl),
+            '}'
+        ),
+        _generic_entry: $ => seq($.identifier, 
+            optional(seq(
+                ':', 'impl', $._type
+            ))),
+        generic_clause: $ => seq('::<', $._generic_entry, repeat(seq(',', $._generic_entry)) , '>'),
         _enum_item: $ => choice($.declaration, seq($.identifier, optional(seq('=', $.integer_literal)))),
-        _class_item: $ => choice($.declaration, seq($.identifier, ':', $._type)),
+        _class_item: $ => choice(
+            seq($.declaration, optional(seq(optional(','), $._class_item))),
+            seq($.impl_block, optional(seq(optional(','), $._class_item))),
+            seq($.identifier, ':', $._type, optional(seq(',', $._class_item)))
+        ),
         enum_decl: $ => seq($.identifier, ':', 'enum', '=', '{',
             optional(seq(
                 $._enum_item,
@@ -48,16 +68,12 @@ module.exports = grammar({
         ),
         const_decl: $ => seq($.identifier, ':', 'const', $._type, '=', $._expression, ';'),
         class_struct_decl: $ => seq($.identifier, ':', choice('class', 'struct'),
-            optional(seq(':', choice('&', seq('&', 'mut')))), '=', '{',
-                optional(seq(
-                    $._class_item,
-                    repeat(seq(',', $._class_item)),
-                    optional(','),
-                )),
+            optional(seq(':', choice('&', seq('&', 'mut')))), optional($.generic_clause), '=', '{',
+                optional($._class_item),
             '}'
         ),
-        alias_decl: $ => seq($.identifier, ':', 'alias', '=', $._type, ';'),
-        interface_decl: $ => seq($.identifier, ':', 'interface', '=', '{',
+        alias_decl: $ => seq($.identifier, ':', 'alias', optional($.generic_clause), '=', $._type, ';'),
+        interface_decl: $ => seq($.identifier, ':', 'interface', optional($.generic_clause), '=', '{',
             repeat(seq(field("interface_item", $._function_no_body), ';')),
             '}'
         ),
@@ -108,7 +124,10 @@ module.exports = grammar({
             $.generic_name_expr,
             $.scope_expr,
             $.call_expr,
-            $.cast_expr
+            $.cast_expr,
+            $.obj_literal,
+            $.gcnew_epxr,
+            $.prefix_expr
         ),
         binary_expr: $ => choice(
             prec.left(10, seq($._expression, '+', $._expression)),
@@ -141,8 +160,12 @@ module.exports = grammar({
             prec.left(3, seq($._expression, '&&', $._expression)),
             prec.left(2, seq($._expression, '||', $._expression)),
         ),
+        prefix_expr: $ => seq(
+            choice('-', '*', '&', '!', seq('&', 'mut')),
+            $._expression
+        ),
         name_expr: $ => $.identifier,
-        cast_expr: $ => seq($._expression, 'as', $._type),
+        cast_expr: $ => prec(12, seq($._expression, 'as', $._type)),
         generic_name_expr: $ => seq($.identifier, $._generic_args),
         scope_expr: $ => seq(choice($.generic_name_expr, $.name_expr), 
             repeat1(seq("::", choice($.generic_name_expr, $.name_expr)))),
@@ -157,7 +180,15 @@ module.exports = grammar({
             repeat1(seq(',', $._expression)), 
             ')'),
         group_expr: $ => seq('(', $._expression, ')'),
-        
+        _obj_lit_item: $ => seq('.', $.identifier, optional(seq('=', $._expression))),
+        obj_literal: $ => seq(choice($.name_expr, $.generic_name_expr, $.scope_expr),
+            '{', 
+            optional(seq(
+                $._obj_lit_item, optional(seq(',', $._obj_lit_item))
+            )),
+            '}'
+        ),
+        gcnew_epxr: $ => seq('gcnew', $._expression),
         _generic_args: $ => seq('::<', $._type, repeat(seq(',', $._type)), '>'),
         _type: $ => choice(
             $.primitive_type,
