@@ -20,17 +20,8 @@
       }
     },
     "line_comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "//"
-        },
-        {
-          "type": "PATTERN",
-          "value": ".*"
-        }
-      ]
+      "type": "PATTERN",
+      "value": "\\/\\/.*"
     },
     "attr_list": {
       "type": "SEQ",
@@ -1288,6 +1279,10 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "char_literal"
         }
       ]
     },
@@ -1951,6 +1946,10 @@
     "string": {
       "type": "PATTERN",
       "value": "\\\".*\\\""
+    },
+    "char_literal": {
+      "type": "PATTERN",
+      "value": "\\'.\\'"
     },
     "name_expr": {
       "type": "SYMBOL",

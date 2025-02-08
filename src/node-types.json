@@ -181,6 +181,10 @@
           "named": true
         },
         {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "float_literal",
           "named": true
         },
@@ -317,6 +321,10 @@
           "named": true
         },
         {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "float_literal",
           "named": true
         },
@@ -389,6 +397,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -594,6 +606,10 @@
           "named": true
         },
         {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "cond_extract_stat",
           "named": true
         },
@@ -702,6 +718,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -887,6 +907,10 @@
           "named": true
         },
         {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "float_literal",
           "named": true
         },
@@ -963,6 +987,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -1270,6 +1298,10 @@
           "named": true
         },
         {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "float_literal",
           "named": true
         },
@@ -1475,6 +1507,10 @@
           "named": true
         },
         {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "float_literal",
           "named": true
         },
@@ -1618,6 +1654,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -1817,11 +1857,6 @@
     }
   },
   {
-    "type": "line_comment",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "name_expr",
     "named": true,
     "fields": {},
@@ -1858,6 +1893,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -2055,6 +2094,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -2268,6 +2311,10 @@
           "named": true
         },
         {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "float_literal",
           "named": true
         },
@@ -2375,6 +2422,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -2517,6 +2568,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -2844,6 +2899,10 @@
           "named": true
         },
         {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "cond_extract_stat",
           "named": true
         },
@@ -2952,6 +3011,10 @@
         },
         {
           "type": "cast_expr",
+          "named": true
+        },
+        {
+          "type": "char_literal",
           "named": true
         },
         {
@@ -3114,10 +3177,6 @@
     "named": false
   },
   {
-    "type": "//",
-    "named": false
-  },
-  {
     "type": "/=",
     "named": false
   },
@@ -3206,6 +3265,10 @@
     "named": false
   },
   {
+    "type": "char_literal",
+    "named": true
+  },
+  {
     "type": "class",
     "named": false
   },
@@ -3292,6 +3355,11 @@
   {
     "type": "interface",
     "named": false
+  },
+  {
+    "type": "line_comment",
+    "named": true,
+    "extra": true
   },
   {
     "type": "mut",

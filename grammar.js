@@ -17,7 +17,7 @@ module.exports = grammar({
     rules: {
     // For now operator overload is module scoped
         source_file: $ => repeat(choice($.declaration, $.operator_overload)),
-        line_comment: $ => seq('//', /.*/),
+        line_comment: $ => /\/\/.*/,
         attr_list: $ => seq('#(', $.identifier, repeat(seq(',', $.identifier)), ')'),
         declaration: $ => seq(
             optional($.attr_list),
@@ -128,7 +128,8 @@ module.exports = grammar({
             $.obj_literal,
             $.gcnew_epxr,
             $.prefix_expr,
-            $.string
+            $.string,
+            $.char_literal
         ),
         binary_expr: $ => choice(
             prec.left(10, seq($._expression, '+', $._expression)),
@@ -166,6 +167,7 @@ module.exports = grammar({
             $._expression
         ),
         string: $ => /\".*\"/,
+        char_literal: $ => /\'.\'/,
         name_expr: $ => $.identifier,
         cast_expr: $ => prec(12, seq($._expression, 'as', $._type)),
         generic_name_expr: $ => seq($.identifier, $._generic_args),
