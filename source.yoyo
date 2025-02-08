@@ -1,0 +1,18 @@
+Polarity: enum = {
+    Positive = 0,
+    Negative = 1,
+    flipped: fn (this) -> Polarity = return Polarity::from_int(1 - std::as_int(p)).value();
+}
+operator: <=>(v: &Vec2, a: &Vec2) -> core::CmpEq = {
+    return v.x == a.x && v.y == a.y && v.z == a.z;
+}
+Iterator: interface = {
+    lol: fn;
+    lope: fn (&mut this);
+}
+Int: alias = i32;
+main: fn (n: i32, b: i32?, c: &i32?) -> (i32, i64) = {
+    a: (i32, i32) = 100;
+    b := 200;
+    b: mut = 2;
+}
