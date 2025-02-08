@@ -1284,6 +1284,10 @@
         {
           "type": "SYMBOL",
           "name": "prefix_expr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
         }
       ]
     },
@@ -1943,6 +1947,10 @@
           "name": "_expression"
         }
       ]
+    },
+    "string": {
+      "type": "PATTERN",
+      "value": "\\\".*\\\""
     },
     "name_expr": {
       "type": "SYMBOL",

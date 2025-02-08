@@ -217,6 +217,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         }
@@ -349,6 +353,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         }
@@ -445,6 +453,10 @@
         },
         {
           "type": "scope_expr",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -646,6 +658,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         },
@@ -750,6 +766,10 @@
         },
         {
           "type": "scope_expr",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -903,6 +923,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         }
@@ -1003,6 +1027,10 @@
         },
         {
           "type": "scope_expr",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -1278,6 +1306,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         }
@@ -1479,6 +1511,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         }
@@ -1642,6 +1678,10 @@
         },
         {
           "type": "scope_expr",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -1861,6 +1901,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         }
@@ -2047,6 +2091,10 @@
         },
         {
           "type": "scope_expr",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -2256,6 +2304,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         }
@@ -2359,6 +2411,10 @@
         },
         {
           "type": "scope_expr",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -2525,6 +2581,10 @@
         },
         {
           "type": "scope_expr",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -2844,6 +2904,10 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "tuple_literal",
           "named": true
         },
@@ -2952,6 +3016,10 @@
         },
         {
           "type": "scope_expr",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -3236,6 +3304,10 @@
   {
     "type": "return",
     "named": false
+  },
+  {
+    "type": "string",
+    "named": true
   },
   {
     "type": "struct",

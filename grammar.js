@@ -127,7 +127,8 @@ module.exports = grammar({
             $.cast_expr,
             $.obj_literal,
             $.gcnew_epxr,
-            $.prefix_expr
+            $.prefix_expr,
+            $.string
         ),
         binary_expr: $ => choice(
             prec.left(10, seq($._expression, '+', $._expression)),
@@ -164,6 +165,7 @@ module.exports = grammar({
             choice('-', '*', '&', '!', seq('&', 'mut')),
             $._expression
         ),
+        string: $ => /\".*\"/,
         name_expr: $ => $.identifier,
         cast_expr: $ => prec(12, seq($._expression, 'as', $._type)),
         generic_name_expr: $ => seq($.identifier, $._generic_args),
