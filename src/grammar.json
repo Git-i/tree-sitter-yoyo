@@ -1990,47 +1990,51 @@
       ]
     },
     "scope_expr": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "generic_name_expr"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "name_expr"
-            }
-          ]
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SEQ",
+      "type": "PREC_LEFT",
+      "value": 14,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
             "members": [
               {
-                "type": "STRING",
-                "value": "::"
+                "type": "SYMBOL",
+                "name": "generic_name_expr"
               },
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "generic_name_expr"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "name_expr"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "name_expr"
               }
             ]
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "::"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "generic_name_expr"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "name_expr"
+                    }
+                  ]
+                }
+              ]
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     "call_expr": {
       "type": "PREC",

@@ -35,7 +35,6 @@ LinkedListIterator: struct:&::<T> = {
 		}
 	}
 }
-
 EnumerateIter: struct:&::<T, O> = {
 	actual_iter: T,
 	idx: u64,
@@ -70,6 +69,7 @@ enumerate: fn::<T: impl core::Iterator::<O>, O> (iter: T) ->
 chain: fn::<A: impl core::Iterator::<O>, B: impl core::Iterator::<O>, O> 
 	(first: A, snd: B) -> ChainIter::<A, B, O> = return ChainIter::<A, B, O>{.first_iter = first, .second_iter = snd};
 main: fn = {
+	test::print();
 	a: mut = LinkedList::<str>::new();
 	a.append("Hello");
 	a.append("World");
