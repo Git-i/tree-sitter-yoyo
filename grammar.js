@@ -39,20 +39,20 @@ module.exports = grammar({
             $._statement
         ),
         impl_block: $ => seq(
-            'impl', $._type, '{',
+            'impl', $.type, '{',
             repeat($.function_decl),
             '}'
         ),
         _generic_entry: $ => seq($.identifier, 
             optional(seq(
-                ':', 'impl', $._type
+                ':', 'impl', $.type
             ))),
         generic_clause: $ => seq('::<', $._generic_entry, repeat(seq(',', $._generic_entry)) , '>'),
         _enum_item: $ => choice($.declaration, seq($.identifier, optional(seq('=', $.integer_literal)))),
         _class_item: $ => choice(
             seq($.declaration, optional(seq(optional(','), $._class_item))),
             seq($.impl_block, optional(seq(optional(','), $._class_item))),
-            seq($.identifier, ':', $._type, optional(seq(',', $._class_item)))
+            seq($.identifier, ':', $.type, optional(seq(',', $._class_item)))
         ),
         enum_decl: $ => seq($.identifier, ':', 'enum', '=', '{',
             optional(seq(
@@ -66,13 +66,13 @@ module.exports = grammar({
             choice('+', '-', '/', '*', '%', '&', '|', '^', '<=>', '<<', '>>'),
             $.function_sig, '=', $._statement
         ),
-        const_decl: $ => seq($.identifier, ':', 'const', $._type, '=', $.expression, ';'),
+        const_decl: $ => seq($.identifier, ':', 'const', $.type, '=', $.expression, ';'),
         class_struct_decl: $ => seq($.identifier, ':', choice('class', 'struct'),
             optional(seq(':', choice('&', seq('&', 'mut')))), optional($.generic_clause), '=', '{',
                 optional($._class_item),
             '}'
         ),
-        alias_decl: $ => seq($.identifier, ':', 'alias', optional($.generic_clause), '=', $._type, ';'),
+        alias_decl: $ => seq($.identifier, ':', 'alias', optional($.generic_clause), '=', $.type, ';'),
         interface_decl: $ => seq($.identifier, ':', 'interface', optional($.generic_clause), '=', '{',
             repeat(seq(field("interface_item", $._function_no_body), ';')),
             '}'
@@ -81,7 +81,7 @@ module.exports = grammar({
             $.identifier,
             ':',
             optional('mut'),
-            optional($._type),
+            optional($.type),
             '=',
             $.expression, ';'
         ),
@@ -119,17 +119,20 @@ module.exports = grammar({
             $.integer_literal,
             $.float_literal,
             $.bool_literal,
+            $.null_literal,
             $.tuple_literal,
             $.group_expr,
             $.generic_name_expr,
             $.scope_expr,
             $.call_expr,
+            $.sub_expr,
             $.cast_expr,
             $.obj_literal,
             $.gcnew_epxr,
             $.prefix_expr,
             $.string,
-            $.char_literal
+            $.char_literal,
+            $.array_literal
         ),
         binary_expr: $ => choice(
             prec.left(10, seq($.expression, '+', $.expression)),
@@ -169,7 +172,7 @@ module.exports = grammar({
         string: $ => /\".*\"/,
         char_literal: $ => /\'.\'/,
         name_expr: $ => $.identifier,
-        cast_expr: $ => prec(12, seq($.expression, 'as', $._type)),
+        cast_expr: $ => prec(12, seq($.expression, 'as', $.type)),
         generic_name_expr: $ => seq($.identifier, $._generic_args),
         scope_expr: $ => prec.left(14, seq(choice($.generic_name_expr, $.name_expr), 
             repeat1(seq("::", choice($.generic_name_expr, $.name_expr))))),
@@ -179,6 +182,7 @@ module.exports = grammar({
         integer_literal: $ => /\d+/,
         float_literal: $ => /\d+\.\d+/,
         bool_literal: $ => choice('false', 'true'),
+        null_literal: $ => "null",
         tuple_literal: $ => seq('(', 
             $.expression, 
             repeat1(seq(',', $.expression)), 
@@ -192,47 +196,50 @@ module.exports = grammar({
             )),
             '}'
         ),
+        array_literal: $ => seq('[', optional(
+            seq($.expression, repeat(seq(',', $.expression)), optional(','))
+        ), ']'),
         gcnew_epxr: $ => seq('gcnew', $.expression),
-        _generic_args: $ => seq('::<', $._type, repeat(seq(',', $._type)), '>'),
-        _type: $ => choice(
-            $.primitive_type,
+        _generic_args: $ => seq('::<', $.type, repeat(seq(',', $.type)), '>'),
+        type: $ => choice(
+            $.primitivetype,
             $.identifier,
-            $.array_type,
-            $.group_type,
-            $.tuple_type,
-            $.variant_type,
-            $.ref_type,
-            $.ref_mut_type,
-            $.optional_type,
-            $.view_type,
-            $.view_mut_type,
-            $.gc_ref_type,
+            $.arraytype,
+            $.grouptype,
+            $.tupletype,
+            $.varianttype,
+            $.reftype,
+            $.ref_muttype,
+            $.optionaltype,
+            $.viewtype,
+            $.view_muttype,
+            $.gc_reftype,
             $.generic_name_expr,
             $.scope_expr),
-        primitive_type: $ => choice('i8', 'i16', 'i32', 'i64', 'u8', 'u16', 'u32', 'u64', 'f32', 'f64'),
-        array_type: $ => seq('[', $._type, optional(seq(';', $.integer_literal)), ']'),
-        group_type: $ => seq('(', $._type, ')'),
-        tuple_type: $ => seq('(', $._type, repeat1(seq(',', $._type)), ')'),
-        variant_type: $ => seq('(', $._type, repeat1(seq('|', $._type)), ')'),
-        ref_type: $ => seq('&', $._type),
-        ref_mut_type: $ => seq('&', 'mut', $._type),
-        optional_type: $ => prec.left(1, seq($._type, '?')),
-        view_type: $ => prec.left(1, seq($._type, ':', '&')),
-        view_mut_type: $ => prec.left(1, seq($._type, ':', '&', 'mut')),
-        gc_ref_type: $ => seq('^', $._type),
+        primitivetype: $ => choice('i8', 'i16', 'i32', 'i64', 'u8', 'u16', 'u32', 'u64', 'f32', 'f64'),
+        arraytype: $ => seq('[', $.type, optional(seq(';', $.integer_literal)), ']'),
+        grouptype: $ => seq('(', $.type, ')'),
+        tupletype: $ => seq('(', $.type, repeat1(seq(',', $.type)), ')'),
+        varianttype: $ => seq('(', $.type, repeat1(seq('|', $.type)), ')'),
+        reftype: $ => seq('&', $.type),
+        ref_muttype: $ => seq('&', 'mut', $.type),
+        optionaltype: $ => prec.left(1, seq($.type, '?')),
+        viewtype: $ => prec.left(1, seq($.type, ':', '&')),
+        view_muttype: $ => prec.left(1, seq($.type, ':', '&', 'mut')),
+        gc_reftype: $ => seq('^', $.type),
         
         _this_clause: $ => seq(optional(choice('&', seq('&', 'mut'))), 'this'),
         _param_list: $ => seq('(', 
             optional(
-                seq(choice($._this_clause, seq($.identifier, ':', $._type)), 
-                repeat(seq(',', $.identifier, ':', $._type)))
+                seq(choice($._this_clause, seq($.identifier, ':', $.type)), 
+                repeat(seq(',', $.identifier, ':', $.type)))
             ), 
         ')'),
         function_sig: $ => seq(
             choice(
-                seq('->', $._type),
+                seq('->', $.type),
                 $._param_list,
-                seq($._param_list, seq('->', $._type))
+                seq($._param_list, seq('->', $.type))
             )
         ),
         identifier: $ => /[a-zA-Z][a-zA-Z0-9_]*/,

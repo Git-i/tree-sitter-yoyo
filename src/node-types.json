@@ -8,23 +8,7 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
           "type": "generic_clause",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
           "named": true
         },
         {
@@ -32,46 +16,29 @@
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "array_type",
+    "type": "array_literal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arraytype",
     "named": true,
     "fields": {},
     "children": {
@@ -79,63 +46,11 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "integer_literal",
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -260,63 +175,11 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
           "type": "expression",
           "named": true
         },
         {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -331,27 +194,11 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
           "type": "declaration",
           "named": true
         },
         {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
           "type": "generic_clause",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
           "named": true
         },
         {
@@ -363,39 +210,7 @@
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -469,23 +284,7 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
           "named": true
         },
         {
@@ -493,39 +292,7 @@
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -622,6 +389,10 @@
       "required": true,
       "types": [
         {
+          "type": "array_literal",
+          "named": true
+        },
+        {
           "type": "binary_expr",
           "named": true
         },
@@ -666,6 +437,10 @@
           "named": true
         },
         {
+          "type": "null_literal",
+          "named": true
+        },
+        {
           "type": "obj_literal",
           "named": true
         },
@@ -679,6 +454,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "sub_expr",
           "named": true
         },
         {
@@ -819,66 +598,18 @@
       "required": false,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "gc_ref_type",
+    "type": "gc_reftype",
     "named": true,
     "fields": {},
     "children": {
@@ -886,59 +617,7 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -968,59 +647,11 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -1035,59 +666,11 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -1109,7 +692,7 @@
     }
   },
   {
-    "type": "group_type",
+    "type": "grouptype",
     "named": true,
     "fields": {},
     "children": {
@@ -1117,59 +700,7 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -1239,63 +770,11 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
           "type": "function_decl",
           "named": true
         },
         {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -1449,7 +928,7 @@
     }
   },
   {
-    "type": "optional_type",
+    "type": "optionaltype",
     "named": true,
     "fields": {},
     "children": {
@@ -1457,59 +936,7 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -1531,12 +958,12 @@
     }
   },
   {
-    "type": "primitive_type",
+    "type": "primitivetype",
     "named": true,
     "fields": {}
   },
   {
-    "type": "ref_mut_type",
+    "type": "ref_muttype",
     "named": true,
     "fields": {},
     "children": {
@@ -1544,66 +971,14 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "ref_type",
+    "type": "reftype",
     "named": true,
     "fields": {},
     "children": {
@@ -1611,59 +986,7 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -1724,6 +1047,21 @@
     }
   },
   {
+    "type": "sub_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "tuple_literal",
     "named": true,
     "fields": {},
@@ -1739,7 +1077,7 @@
     }
   },
   {
-    "type": "tuple_type",
+    "type": "tupletype",
     "named": true,
     "fields": {},
     "children": {
@@ -1747,11 +1085,26 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "arraytype",
           "named": true
         },
         {
-          "type": "gc_ref_type",
+          "type": "gc_reftype",
           "named": true
         },
         {
@@ -1759,7 +1112,7 @@
           "named": true
         },
         {
-          "type": "group_type",
+          "type": "grouptype",
           "named": true
         },
         {
@@ -1767,19 +1120,19 @@
           "named": true
         },
         {
-          "type": "optional_type",
+          "type": "optionaltype",
           "named": true
         },
         {
-          "type": "primitive_type",
+          "type": "primitivetype",
           "named": true
         },
         {
-          "type": "ref_mut_type",
+          "type": "ref_muttype",
           "named": true
         },
         {
-          "type": "ref_type",
+          "type": "reftype",
           "named": true
         },
         {
@@ -1787,19 +1140,19 @@
           "named": true
         },
         {
-          "type": "tuple_type",
+          "type": "tupletype",
           "named": true
         },
         {
-          "type": "variant_type",
+          "type": "varianttype",
           "named": true
         },
         {
-          "type": "view_mut_type",
+          "type": "view_muttype",
           "named": true
         },
         {
-          "type": "view_type",
+          "type": "viewtype",
           "named": true
         }
       ]
@@ -1814,23 +1167,7 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
           "type": "expression",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
           "named": true
         },
         {
@@ -1838,46 +1175,14 @@
           "named": true
         },
         {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "variant_type",
+    "type": "varianttype",
     "named": true,
     "fields": {},
     "children": {
@@ -1885,66 +1190,14 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "view_mut_type",
+    "type": "view_muttype",
     "named": true,
     "fields": {},
     "children": {
@@ -1952,66 +1205,14 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "view_type",
+    "type": "viewtype",
     "named": true,
     "fields": {},
     "children": {
@@ -2019,59 +1220,7 @@
       "required": true,
       "types": [
         {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "gc_ref_type",
-          "named": true
-        },
-        {
-          "type": "generic_name_expr",
-          "named": true
-        },
-        {
-          "type": "group_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "optional_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "ref_mut_type",
-          "named": true
-        },
-        {
-          "type": "ref_type",
-          "named": true
-        },
-        {
-          "type": "scope_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "variant_type",
-          "named": true
-        },
-        {
-          "type": "view_mut_type",
-          "named": true
-        },
-        {
-          "type": "view_type",
+          "type": "type",
           "named": true
         }
       ]
@@ -2455,6 +1604,10 @@
   {
     "type": "mut",
     "named": false
+  },
+  {
+    "type": "null_literal",
+    "named": true
   },
   {
     "type": "operator",

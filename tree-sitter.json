@@ -10,6 +10,9 @@
         "yo",
         "yoyo"
       ],
+      "highlights": [
+        "queries/highlights.scm"
+      ],
       "injection-regex": "^yoyo$",
       "class-name": "TreeSitterYoyo"
     }
