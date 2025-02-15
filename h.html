@@ -1,0 +1,230 @@
+
+<!doctype HTML>
+<head>
+  <title>Tree-sitter Highlighting</title>
+  <style>
+    body {
+      font-family: monospace
+    }
+    .line-number {
+      user-select: none;
+      text-align: right;
+      color: rgba(27,31,35,.3);
+      padding: 0 10px;
+    }
+    .line {
+      white-space: pre;
+    }
+  </style>
+  <style>
+    .tag { color: #000087; }
+    .variable.parameter { text-decoration: underline;color: #d0d0d0; }
+    .string { color: #008700; }
+    .function.builtin { font-weight: bold;color: #005fd7; }
+    .type { color: #005f5f; }
+    .operator { font-weight: bold;color: #4e4e4e; }
+    .string.special { color: #008787; }
+    .punctuation.bracket { color: #4e4e4e; }
+    .module { color: #af8700; }
+    .comment { font-style: italic;color: #8a8a8a; }
+    .variable { color: #d0d0d0; }
+    .variable.builtin { font-weight: bold;color: #d0d0d0; }
+    .constant { color: #875f00; }
+    .type.builtin { font-weight: bold;color: #005f5f; }
+    .function { color: #005fd7; }
+    .constructor { color: #af8700; }
+    .attribute { font-style: italic;color: #af0000; }
+    .punctuation.delimiter { color: #4e4e4e; }
+    .punctuation.special { color: #4e4e4e; }
+    .keyword { color: #5f00d7; }
+    .property { color: #af0000; }
+    .constant.builtin { font-weight: bold;color: #875f00; }
+    .property.builtin { font-weight: bold;color: #af0000; }
+    .number { font-weight: bold;color: #875f00; }
+    .punctuation { color: #4e4e4e; }
+  </style>
+
+</head>
+<body>
+
+<table>
+<tr><td class=line-number>1</td><td class=line><span class='type'>Player</span>: <span class='type'>enum</span> = { <span class='constant'>X</span>, <span class='constant'>O</span>, <span class='constant'>None</span> }
+</td></tr>
+<tr><td class=line-number>2</td><td class=line><span class='function'>player_text</span>: <span class='function'>fn</span> (p: &amp;[<span class='type'>Player</span>; <span class='number'>9</span>], alt: <span class='type builtin'>i32</span>) -&gt; <span class='type'>str</span> = {
+</td></tr>
+<tr><td class=line-number>3</td><td class=line>    <span class='keyword'>if</span> (*(*<span class='variable'>p</span>)[<span class='variable'>alt</span>] == <span class='type'>Player</span>::<span class='type'>X</span>) 
+</td></tr>
+<tr><td class=line-number>4</td><td class=line>        <span class='keyword'>return</span> <span class='string'>&quot;X&quot;</span>;
+</td></tr>
+<tr><td class=line-number>5</td><td class=line>    <span class='keyword'>else</span> <span class='keyword'>if</span> (*(*<span class='variable'>p</span>)[<span class='variable'>alt</span>] == <span class='type'>Player</span>::<span class='type'>O</span>)
+</td></tr>
+<tr><td class=line-number>6</td><td class=line>        <span class='keyword'>return</span> <span class='string'>&quot;O&quot;</span>;
+</td></tr>
+<tr><td class=line-number>7</td><td class=line>    <span class='keyword'>return</span> <span class='string'>&quot;${alt}&quot;</span>;
+</td></tr>
+<tr><td class=line-number>8</td><td class=line>}
+</td></tr>
+<tr><td class=line-number>9</td><td class=line><span class='function'>cycle</span>: <span class='function'>fn</span> (p: <span class='type'>Player</span>) -&gt; <span class='type'>Player</span> = {
+</td></tr>
+<tr><td class=line-number>10</td><td class=line>    <span class='keyword'>if</span> (<span class='variable'>p</span> == <span class='type'>Player</span>::<span class='type'>X</span>) 
+</td></tr>
+<tr><td class=line-number>11</td><td class=line>        <span class='keyword'>return</span> <span class='type'>Player</span>::<span class='type'>O</span>;
+</td></tr>
+<tr><td class=line-number>12</td><td class=line>    <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='variable'>p</span> == <span class='type'>Player</span>::<span class='type'>O</span>)
+</td></tr>
+<tr><td class=line-number>13</td><td class=line>        <span class='keyword'>return</span> <span class='type'>Player</span>::<span class='type'>X</span>;
+</td></tr>
+<tr><td class=line-number>14</td><td class=line>    <span class='keyword'>return</span> <span class='variable'>p</span>;
+</td></tr>
+<tr><td class=line-number>15</td><td class=line>}
+</td></tr>
+<tr><td class=line-number>16</td><td class=line><span class='type'>Game</span>: <span class='type'>struct</span> = {
+</td></tr>
+<tr><td class=line-number>17</td><td class=line>    <span class='variable'>data</span>: [<span class='type'>Player</span>; <span class='number'>9</span>],
+</td></tr>
+<tr><td class=line-number>18</td><td class=line>    <span class='variable'>player</span>: <span class='type'>Player</span>,
+</td></tr>
+<tr><td class=line-number>19</td><td class=line>    <span class='function'>render</span>: <span class='function'>fn</span> (&amp;this) = {
+</td></tr>
+<tr><td class=line-number>20</td><td class=line>        <span class='variable'>intermediate</span> := <span class='string'>&quot;───┼───┼───&quot;</span>;
+</td></tr>
+<tr><td class=line-number>21</td><td class=line>        <span class='variable'>row1</span> := <span class='string'>&quot; ${player_text(&amp;this.data, 0)} │ ${player_text(&amp;this.data, 1)} │ ${player_text(&amp;this.data, 2)} &quot;</span>;
+</td></tr>
+<tr><td class=line-number>22</td><td class=line>        <span class='variable'>row2</span> := <span class='string'>&quot; ${player_text(&amp;this.data, 3)} │ ${player_text(&amp;this.data, 4)} │ ${player_text(&amp;this.data, 5)} &quot;</span>;
+</td></tr>
+<tr><td class=line-number>23</td><td class=line>        <span class='variable'>row3</span> := <span class='string'>&quot; ${player_text(&amp;this.data, 6)} │ ${player_text(&amp;this.data, 7)} │ ${player_text(&amp;this.data, 8)} &quot;</span>;
+</td></tr>
+<tr><td class=line-number>24</td><td class=line>        <span class='variable'>row1</span>.<span class='type'>test</span>::<span class='function'>print</span>();
+</td></tr>
+<tr><td class=line-number>25</td><td class=line>        <span class='variable'>intermediate</span>.<span class='type'>test</span>::<span class='function'>print</span>();
+</td></tr>
+<tr><td class=line-number>26</td><td class=line>        <span class='variable'>row2</span>.<span class='type'>test</span>::<span class='function'>print</span>();
+</td></tr>
+<tr><td class=line-number>27</td><td class=line>        <span class='variable'>intermediate</span>.<span class='type'>test</span>::<span class='function'>print</span>();
+</td></tr>
+<tr><td class=line-number>28</td><td class=line>        <span class='variable'>row3</span>.<span class='type'>test</span>::<span class='function'>print</span>();
+</td></tr>
+<tr><td class=line-number>29</td><td class=line>    }
+</td></tr>
+<tr><td class=line-number>30</td><td class=line>    <span class='function'>new</span>: <span class='function'>fn</span> -&gt; <span class='type'>Game</span> = {
+</td></tr>
+<tr><td class=line-number>31</td><td class=line>        <span class='keyword'>return</span> <span class='type'>Game</span>{ 
+</td></tr>
+<tr><td class=line-number>32</td><td class=line>            .<span class='variable'>data</span> = [
+</td></tr>
+<tr><td class=line-number>33</td><td class=line>                <span class='type'>Player</span>::<span class='type'>None</span>, <span class='type'>Player</span>::<span class='type'>None</span>, <span class='type'>Player</span>::<span class='type'>None</span>,
+</td></tr>
+<tr><td class=line-number>34</td><td class=line>                <span class='type'>Player</span>::<span class='type'>None</span>, <span class='type'>Player</span>::<span class='type'>None</span>, <span class='type'>Player</span>::<span class='type'>None</span>,
+</td></tr>
+<tr><td class=line-number>35</td><td class=line>                <span class='type'>Player</span>::<span class='type'>None</span>, <span class='type'>Player</span>::<span class='type'>None</span>, <span class='type'>Player</span>::<span class='type'>None</span>
+</td></tr>
+<tr><td class=line-number>36</td><td class=line>            ],
+</td></tr>
+<tr><td class=line-number>37</td><td class=line>            .<span class='variable'>player</span> = <span class='type'>Player</span>::<span class='type'>X</span>
+</td></tr>
+<tr><td class=line-number>38</td><td class=line>        };
+</td></tr>
+<tr><td class=line-number>39</td><td class=line>    }
+</td></tr>
+<tr><td class=line-number>40</td><td class=line>    <span class='function'>play</span>: <span class='function'>fn</span> (&amp;<span class='keyword'>mut</span> this) = {
+</td></tr>
+<tr><td class=line-number>41</td><td class=line>        <span class='string'>&quot;${this.player}&#39;s turn: &quot;</span>.<span class='type'>test</span>::<span class='function'>print</span>();
+</td></tr>
+<tr><td class=line-number>42</td><td class=line>        <span class='variable'>idx</span>: <span class='keyword'>mut</span> <span class='type builtin'>u32</span> = <span class='number'>10</span>;
+</td></tr>
+<tr><td class=line-number>43</td><td class=line>        <span class='type'>while</span> (<span class='variable'>idx</span> &gt; <span class='number'>9</span> &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='variable'>idx</span>] != <span class='type'>Player</span>::<span class='type'>None</span>) {
+</td></tr>
+<tr><td class=line-number>44</td><td class=line>            <span class='variable'>idx</span> = <span class='type'>test</span>::<span class='function'>read_uint</span>();
+</td></tr>
+<tr><td class=line-number>45</td><td class=line>        }
+</td></tr>
+<tr><td class=line-number>46</td><td class=line>        *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='variable'>idx</span>] = <span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>player</span>;
+</td></tr>
+<tr><td class=line-number>47</td><td class=line>        <span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>player</span> = <span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>player</span>.<span class='function'>cycle</span>();
+</td></tr>
+<tr><td class=line-number>48</td><td class=line>    }
+</td></tr>
+<tr><td class=line-number>49</td><td class=line>    <span class='function'>check_winner</span>: <span class='function'>fn</span> (&amp;this) -&gt; <span class='type'>Player</span>? = {
+</td></tr>
+<tr><td class=line-number>50</td><td class=line>        <span class='comment'>//horizontal winner</span>
+</td></tr>
+<tr><td class=line-number>51</td><td class=line>        <span class='keyword'>if</span> (*<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>0</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>1</span>] &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>1</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>2</span>])
+</td></tr>
+<tr><td class=line-number>52</td><td class=line>            <span class='keyword'>return</span> *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>0</span>];
+</td></tr>
+<tr><td class=line-number>53</td><td class=line>        <span class='keyword'>if</span> (*<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>3</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>4</span>] &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>4</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>5</span>])
+</td></tr>
+<tr><td class=line-number>54</td><td class=line>            <span class='keyword'>return</span> *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>3</span>];
+</td></tr>
+<tr><td class=line-number>55</td><td class=line>        <span class='keyword'>if</span> (*<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>6</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>7</span>] &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>7</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>8</span>])
+</td></tr>
+<tr><td class=line-number>56</td><td class=line>            <span class='keyword'>return</span> *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>6</span>];
+</td></tr>
+<tr><td class=line-number>57</td><td class=line>
+</td></tr>
+<tr><td class=line-number>58</td><td class=line>        <span class='comment'>//vertical winner</span>
+</td></tr>
+<tr><td class=line-number>59</td><td class=line>        <span class='keyword'>if</span> (*<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>0</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>3</span>] &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>3</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>6</span>])
+</td></tr>
+<tr><td class=line-number>60</td><td class=line>            <span class='keyword'>return</span> *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>0</span>];
+</td></tr>
+<tr><td class=line-number>61</td><td class=line>        <span class='keyword'>if</span> (*<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>1</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>4</span>] &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>4</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>7</span>])
+</td></tr>
+<tr><td class=line-number>62</td><td class=line>            <span class='keyword'>return</span> *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>1</span>];
+</td></tr>
+<tr><td class=line-number>63</td><td class=line>        <span class='keyword'>if</span> (*<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>2</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>5</span>] &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>5</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>8</span>])
+</td></tr>
+<tr><td class=line-number>64</td><td class=line>            <span class='keyword'>return</span> *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>2</span>];
+</td></tr>
+<tr><td class=line-number>65</td><td class=line>        
+</td></tr>
+<tr><td class=line-number>66</td><td class=line>        <span class='comment'>//diagonal winner</span>
+</td></tr>
+<tr><td class=line-number>67</td><td class=line>        <span class='keyword'>if</span> (*<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>0</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>4</span>] &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>4</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>5</span>])
+</td></tr>
+<tr><td class=line-number>68</td><td class=line>            <span class='keyword'>return</span> *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>0</span>];
+</td></tr>
+<tr><td class=line-number>69</td><td class=line>        <span class='keyword'>if</span> (*<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>2</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>4</span>] &amp;&amp; *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>4</span>] == *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>6</span>])
+</td></tr>
+<tr><td class=line-number>70</td><td class=line>            <span class='keyword'>return</span> *<span class='variable'><span class='variable builtin'>this</span></span>.<span class='variable'>data</span>[<span class='number'>2</span>];
+</td></tr>
+<tr><td class=line-number>71</td><td class=line>        <span class='keyword'>return</span> <span class='constant'>null</span>;
+</td></tr>
+<tr><td class=line-number>72</td><td class=line>    }
+</td></tr>
+<tr><td class=line-number>73</td><td class=line>}
+</td></tr>
+<tr><td class=line-number>74</td><td class=line>
+</td></tr>
+<tr><td class=line-number>75</td><td class=line><span class='function'>main</span>: <span class='function'>fn</span> = {
+</td></tr>
+<tr><td class=line-number>76</td><td class=line>    <span class='variable'>game</span>: <span class='keyword'>mut</span> = <span class='type'>Game</span>::<span class='function'>new</span>();
+</td></tr>
+<tr><td class=line-number>77</td><td class=line>    <span class='variable'>game</span>.<span class='function'>render</span>();
+</td></tr>
+<tr><td class=line-number>78</td><td class=line>    <span class='type'>while</span> (true) {
+</td></tr>
+<tr><td class=line-number>79</td><td class=line>        <span class='variable'>game</span>.<span class='function'>play</span>();
+</td></tr>
+<tr><td class=line-number>80</td><td class=line>        <span class='variable'>game</span>.<span class='function'>render</span>();
+</td></tr>
+<tr><td class=line-number>81</td><td class=line>        <span class='keyword'>if</span> |winner| (<span class='variable'>game</span>.<span class='function'>check_winner</span>()) {
+</td></tr>
+<tr><td class=line-number>82</td><td class=line>            <span class='keyword'>if</span> (<span class='variable'>winner</span> != <span class='type'>Player</span>::<span class='type'>None</span>) {
+</td></tr>
+<tr><td class=line-number>83</td><td class=line>                <span class='string'>&quot;${winner} won&quot;</span>.<span class='type'>test</span>::<span class='function'>print</span>();
+</td></tr>
+<tr><td class=line-number>84</td><td class=line>                <span class='keyword'>break</span>;
+</td></tr>
+<tr><td class=line-number>85</td><td class=line>            }
+</td></tr>
+<tr><td class=line-number>86</td><td class=line>        }
+</td></tr>
+<tr><td class=line-number>87</td><td class=line>    }
+</td></tr>
+<tr><td class=line-number>88</td><td class=line>}
+</td></tr>
+</table>
+
+</body>
+

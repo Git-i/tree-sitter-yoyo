@@ -1,84 +1,88 @@
-//app: module = APP
+Player: enum = { X, O, None }
+player_text: fn (p: &[Player; 9], alt: i32) -> str = {
+    if (*(*p)[alt] == Player::X) 
+        return "X";
+    else if (*(*p)[alt] == Player::O)
+        return "O";
+    return "${alt}";
+}
+cycle: fn (p: Player) -> Player = {
+    if (p == Player::X) 
+        return Player::O;
+    else if (p == Player::O)
+        return Player::X;
+    return p;
+}
+Game: struct = {
+    data: [Player; 9],
+    player: Player,
+    render: fn (&this) = {
+        intermediate := "───┼───┼───";
+        row1 := " ${player_text(&this.data, 0)} │ ${player_text(&this.data, 1)} │ ${player_text(&this.data, 2)} ";
+        row2 := " ${player_text(&this.data, 3)} │ ${player_text(&this.data, 4)} │ ${player_text(&this.data, 5)} ";
+        row3 := " ${player_text(&this.data, 6)} │ ${player_text(&this.data, 7)} │ ${player_text(&this.data, 8)} ";
+        row1.test::print();
+        intermediate.test::print();
+        row2.test::print();
+        intermediate.test::print();
+        row3.test::print();
+    }
+    new: fn -> Game = {
+        return Game{ 
+            .data = [
+                Player::None, Player::None, Player::None,
+                Player::None, Player::None, Player::None,
+                Player::None, Player::None, Player::None
+            ],
+            .player = Player::X
+        };
+    }
+    play: fn (&mut this) = {
+        "${this.player}'s turn: ".test::print();
+        idx: mut u32 = 10;
+        while (idx > 9 && *this.data[idx] != Player::None) {
+            idx = test::read_uint();
+        }
+        *this.data[idx] = this.player;
+        this.player = this.player.cycle();
+    }
+    check_winner: fn (&this) -> Player? = {
+        //horizontal winner
+        if (*this.data[0] == *this.data[1] && *this.data[1] == *this.data[2])
+            return *this.data[0];
+        if (*this.data[3] == *this.data[4] && *this.data[4] == *this.data[5])
+            return *this.data[3];
+        if (*this.data[6] == *this.data[7] && *this.data[7] == *this.data[8])
+            return *this.data[6];
 
-Node: struct::<T> = {
-	data: T,
-	next: (^Node::<T>)?
-}
-LinkedList: struct::<T> = {
-	first: (^Node::<T>)?,
-	new: fn -> This = return This{ .first = null };
-	append: fn (&mut this, value: T) = {
-		if |val| (this.first) {
-			last: mut = val;
-			//implement options as truthy values and break
-			should_loop: mut = true;
-			while (should_loop) {
-				if |nxt| (last.next) last = nxt;
-				else should_loop = false;
-			}
-			last.next = gcnew Node::<T>{ .data = value, .next = null };
-		} else {
-			this.first = gcnew Node::<T>{ .data = value, .next = null };
-		}
-	}
-}
-LinkedListIterator: struct:&::<T> = {
-	curr: (^Node::<T>)?,
-	impl core::Iterator::<&T>
-	{
-		next: fn (&mut this) -> (&T)? = {
-			if |node| (this.curr) {
-				this.curr = node.next;
-				return &node.data;
-			}
-			else return null;
-		}
-	}
-}
-EnumerateIter: struct:&::<T, O> = {
-	actual_iter: T,
-	idx: u64,
-	impl core::Iterator::<(u64, O)> {
-		next: fn (&mut this) -> (u64, O)? = {
-			if |nxt| (this.actual_iter.core::Iterator::<O>::next()) {
-				this.idx = this.idx + 1;
-				return (this.idx, nxt);
-			}
-			else return null;
-		}
-	}
+        //vertical winner
+        if (*this.data[0] == *this.data[3] && *this.data[3] == *this.data[6])
+            return *this.data[0];
+        if (*this.data[1] == *this.data[4] && *this.data[4] == *this.data[7])
+            return *this.data[1];
+        if (*this.data[2] == *this.data[5] && *this.data[5] == *this.data[8])
+            return *this.data[2];
+        
+        //diagonal winner
+        if (*this.data[0] == *this.data[4] && *this.data[4] == *this.data[5])
+            return *this.data[0];
+        if (*this.data[2] == *this.data[4] && *this.data[4] == *this.data[6])
+            return *this.data[2];
+        return null;
+    }
 }
 
-ChainIter: struct:&::<A, B, O> = 
-{
-	first_iter: A,
-	second_iter: B,
-	impl core::Iterator::<O> {
-		next: fn (&mut this) -> O? = {
-			if |nxt| (this.first_iter.core::Iterator::<O>::next()) return nxt;
-			else return this.second_iter.core::Iterator::<O>::next();
-		}
-	}		
-}
-iter: fn::<T> (list: &LinkedList::<T>) -> LinkedListIterator::<T>
-	= return LinkedListIterator::<T> { .curr = list.first };
-
-enumerate: fn::<T: impl core::Iterator::<O>, O> (iter: T) ->
-	EnumerateIter::<T, O> = return EnumerateIter::<T, O>{.actual_iter = iter, .idx = 0};
-
-chain: fn::<A: impl core::Iterator::<O>, B: impl core::Iterator::<O>, O> 
-	(first: A, snd: B) -> ChainIter::<A, B, O> = return ChainIter::<A, B, O>{.first_iter = first, .second_iter = snd};
 main: fn = {
-	test::print();
-	a: mut = LinkedList::<str>::new();
-	a.append("Hello");
-	a.append("World");
-	a.append("Stuff");
-	a.append("Others");
-	b: mut = LinkedList::<str>::new();
-	b.append("Second List");
-	b.append("Second List Again");
-	for (lol in a.iter().chain(b.iter()).enumerate()) {
-		app::func(&"${lol.0}: ${*lol.1}");
-	}
+    game: mut = Game::new();
+    game.render();
+    while (true) {
+        game.play();
+        game.render();
+        if |winner| (game.check_winner()) {
+            if (winner != Player::None) {
+                "${winner} won".test::print();
+                break;
+            }
+        }
+    }
 }
