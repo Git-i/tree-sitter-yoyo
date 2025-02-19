@@ -338,6 +338,10 @@
         {
           "type": "interface_decl",
           "named": true
+        },
+        {
+          "type": "union_decl",
+          "named": true
         }
       ]
     }
@@ -1159,6 +1163,33 @@
     }
   },
   {
+    "type": "union_decl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "impl_block",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "var_decl",
     "named": true,
     "fields": {},
@@ -1647,6 +1678,10 @@
   },
   {
     "type": "u8",
+    "named": false
+  },
+  {
+    "type": "union",
     "named": false
   },
   {

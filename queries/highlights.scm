@@ -4,6 +4,7 @@
     "class" 
     "interface"
     "enum"
+    "union"
 ] @keyword.type
 [
     "while" 
@@ -40,9 +41,16 @@
 (primitivetype)@type.builtin
 (var_decl (identifier)@variable)
 (function_decl .(identifier)@function)
-(class_struct_decl .(identifier)@type (identifier)@variable.member)
+
+(class_struct_decl .(identifier)@type)
+(class_struct_decl (_) (identifier)@variable.memeber)
+
 (obj_literal .(name_expr)@type)
 (obj_literal (identifier)@variable.member)
 (string)@string
-(enum_decl .(identifier)@type (identifier)@constant)
+(enum_decl .(identifier)@type)
+(enum_decl (_) (identifier)@constant)
+
+(union_decl .(identifier)@type)
+(union_decl (_) (identifier)@constant)
 (cond_extract_stat (identifier)@variable)

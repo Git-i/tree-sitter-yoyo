@@ -26,7 +26,8 @@ module.exports = grammar({
                 $.const_decl, 
                 $.enum_decl, 
                 $.class_struct_decl,
-                $.interface_decl)),
+                $.interface_decl,
+                $.union_decl)),
         _function_no_body: $ =>seq(
             $.identifier,
             ':',
@@ -54,6 +55,10 @@ module.exports = grammar({
             seq($.impl_block, optional(seq(optional(','), $._class_item))),
             seq($.identifier, ':', $.type, optional(seq(',', $._class_item)))
         ),
+        _union_item: $ => choice(
+            seq($.declaration, optional(seq(optional(','), $._union_item))),
+            seq($.identifier, optional(seq(':', $.type)), optional(seq(',', $._class_item))),
+        ),
         enum_decl: $ => seq($.identifier, ':', 'enum', '=', '{',
             optional(seq(
                 $._enum_item,
@@ -72,6 +77,7 @@ module.exports = grammar({
                 optional($._class_item),
             '}'
         ),
+        union_decl: $ =>seq($.identifier, ':', 'union', '=', '{', optional($._union_item), '}'),
         alias_decl: $ => seq($.identifier, ':', 'alias', optional($.generic_clause), '=', $.type, ';'),
         interface_decl: $ => seq($.identifier, ':', 'interface', optional($.generic_clause), '=', '{',
             repeat(seq(field("interface_item", $._function_no_body), ';')),
