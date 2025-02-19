@@ -57,7 +57,7 @@ module.exports = grammar({
         ),
         _union_item: $ => choice(
             seq($.declaration, optional(seq(optional(','), $._union_item))),
-            seq($.identifier, optional(seq(':', $.type)), optional(seq(',', $._class_item))),
+            seq($.identifier, optional(seq(':', $.type)), optional(seq(',', $._union_item))),
         ),
         enum_decl: $ => seq($.identifier, ':', 'enum', '=', '{',
             optional(seq(

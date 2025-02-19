@@ -498,7 +498,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "_class_item"
+                      "name": "_union_item"
                     }
                   ]
                 },

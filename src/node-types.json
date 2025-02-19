@@ -1179,10 +1179,6 @@
           "named": true
         },
         {
-          "type": "impl_block",
-          "named": true
-        },
-        {
           "type": "type",
           "named": true
         }
