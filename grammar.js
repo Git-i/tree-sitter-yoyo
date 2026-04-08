@@ -93,9 +93,6 @@ module.exports = grammar({
         ),
         _statement: $ => choice(
             $.return_stat, 
-            $.if_stat, 
-            $.cond_extract_stat,
-            $.block_stat,
             $.while_stat,
             $.for_stat,
             $.with_stat,
@@ -105,21 +102,16 @@ module.exports = grammar({
         ),
 
         return_stat: $ => seq('return', optional($.expression), ';'),
-        if_stat: $ => prec.left(seq('if', '(', $.expression, ')', $._statement, optional(seq('else', $._statement)))),
-        cond_extract_stat: $ => prec.left(seq(
-            'if', 
-            '|', optional(choice('&', seq('&', 'mut'))), $.identifier, '|', 
-            '(', $.expression, ')',
-            $._statement,
-            optional(seq('else', $._statement)))),
-        block_stat: $ => seq('{', repeat(choice($.var_decl, $._statement)), '}'),
         while_stat: $ => seq('while', '(', $.expression, ')', $._statement),
         for_stat: $ => seq('for', '(', $.identifier, 'in', $.expression, ')', $._statement),
         with_stat: $ => seq('with', '(', $.identifier, 'as', $.expression, ')', $._statement),
         break_stat: $ => seq('break', ';'),
         continue_stat: $ => seq('continue', ';'),
-        expr_stat: $ => seq($.expression, ';'),
-        expression: $ => choice(
+        expr_stat: $ => prec(100, choice(
+            seq($._no_blk_expression, ';'),
+            $.block_expr
+        )),
+        _no_blk_expression: $ => choice(
             $.binary_expr,
             $.integer_literal,
             $.float_literal,
@@ -138,8 +130,19 @@ module.exports = grammar({
             $.prefix_expr,
             $.string,
             $.char_literal,
-            $.array_literal
+            $.array_literal,
+            $.if_expr,
+            $.cond_extract_expr
         ),
+        expression: $ => choice($._no_blk_expression, $.block_expr),
+        if_expr: $ => prec.left(seq('if', '(', $.expression, ')', $.expression, optional(seq('else', $._statement)))),
+        cond_extract_expr: $ => prec.left(seq(
+          'if', 
+          '|', optional(choice('&', seq('&', 'mut'))), $.identifier, '|', 
+          '(', $.expression, ')',
+          $.expression,
+          optional(seq('else', $.expression)))),
+        block_expr: $ => seq('{', repeat(choice($.var_decl, $._statement)), optional($.expression), '}'),
         binary_expr: $ => choice(
             prec.left(10, seq($.expression, '+', $.expression)),
             prec.left(10, seq($.expression, '-', $.expression)),
