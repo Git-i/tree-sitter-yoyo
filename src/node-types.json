@@ -190,6 +190,10 @@
           "named": true
         },
         {
+          "type": "domain_list",
+          "named": true
+        },
+        {
           "type": "generic_clause",
           "named": true
         },
@@ -293,6 +297,21 @@
         },
         {
           "type": "union_decl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "domain_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "domain_list_item",
           "named": true
         }
       ]
@@ -626,6 +645,14 @@
       "required": false,
       "types": [
         {
+          "type": "domain_annot",
+          "named": true
+        },
+        {
+          "type": "domain_list",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -917,6 +944,10 @@
           "named": true
         },
         {
+          "type": "generic_clause",
+          "named": true
+        },
+        {
           "type": "return_stat",
           "named": true
         },
@@ -971,9 +1002,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "domain_annot",
+          "named": true
+        },
         {
           "type": "type",
           "named": true
@@ -986,9 +1021,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "domain_annot",
+          "named": true
+        },
         {
           "type": "type",
           "named": true
@@ -1172,6 +1211,14 @@
       "types": [
         {
           "type": "declaration",
+          "named": true
+        },
+        {
+          "type": "domain_list",
+          "named": true
+        },
+        {
+          "type": "generic_clause",
           "named": true
         },
         {
@@ -1522,6 +1569,14 @@
   {
     "type": "continue",
     "named": false
+  },
+  {
+    "type": "domain_annot",
+    "named": true
+  },
+  {
+    "type": "domain_list_item",
+    "named": true
   },
   {
     "type": "else",

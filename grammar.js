@@ -69,15 +69,20 @@ module.exports = grammar({
         ),
         operator_overload: $ => seq('operator', ':',
             choice('+', '-', '/', '*', '%', '&', '|', '^', '<=>', '<<', '>>'),
+            optional($.generic_clause),
             $.function_sig, '=', $._statement
         ),
+        domain_list_item: $ => /[a-z]/,
+        domain_list: $ => seq('(', 
+            optional(seq($.domain_list_item, repeat(seq(',', $.domain_list_item)))),
+                ')'),
         const_decl: $ => seq($.identifier, ':', 'const', $.type, '=', $.expression, ';'),
-        class_struct_decl: $ => seq($.identifier, ':', choice('class', 'struct'),
-            optional(seq(':', choice('&', seq('&', 'mut')))), optional($.generic_clause), '=', '{',
+        class_struct_decl: $ => seq($.identifier, ':', choice('class', 'struct')
+            , optional($.generic_clause), optional($.domain_list), '=', '{',
                 optional($._class_item),
             '}'
         ),
-        union_decl: $ =>seq($.identifier, ':', 'union', '=', '{', optional($._union_item), '}'),
+        union_decl: $ =>seq($.identifier, ':', 'union', optional($.generic_clause), optional($.domain_list), '=', '{', optional($._union_item), '}'),
         alias_decl: $ => seq($.identifier, ':', 'alias', optional($.generic_clause), '=', $.type, ';'),
         interface_decl: $ => seq($.identifier, ':', 'interface', optional($.generic_clause), '=', '{',
             repeat(seq(field("interface_item", $._function_no_body), ';')),
@@ -210,6 +215,7 @@ module.exports = grammar({
         ), ']'),
         gcnew_epxr: $ => seq('gcnew', $.expression),
         _generic_args: $ => seq('::<', $.type, repeat(seq(',', $.type)), '>'),
+        domain_annot: $ => /'[a-z]/,
         type: $ => choice(
             $.primitivetype,
             $.identifier,
@@ -230,20 +236,26 @@ module.exports = grammar({
         grouptype: $ => seq('(', $.type, ')'),
         tupletype: $ => seq('(', $.type, repeat1(seq(',', $.type)), ')'),
         varianttype: $ => seq('(', $.type, repeat1(seq('|', $.type)), ')'),
-        reftype: $ => seq('&', $.type),
-        ref_muttype: $ => seq('&', 'mut', $.type),
+        reftype: $ => seq('&', optional($.domain_annot), $.type),
+        ref_muttype: $ => seq('&', optional($.domain_annot), 'mut', $.type),
         optionaltype: $ => prec.left(1, seq($.type, '?')),
         viewtype: $ => prec.left(1, seq($.type, ':', '&')),
         view_muttype: $ => prec.left(1, seq($.type, ':', '&', 'mut')),
         gc_reftype: $ => seq('^', $.type),
         
-        _this_clause: $ => seq(optional(choice('&', seq('&', 'mut'))), 'this'),
+        _this_clause: $ => seq(
+            optional(
+                choice(
+                    seq('&', optional($.domain_annot)), 
+                    seq('&', optional($.domain_annot), 'mut')
+                )), 
+            'this'),
         _param_list: $ => seq('(', 
             optional(
                 seq(choice($._this_clause, seq($.identifier, ':', $.type)), 
                 repeat(seq(',', $.identifier, ':', $.type)))
             ), 
-        ')'),
+        ')', optional($.domain_list)),
         function_sig: $ => seq(
             choice(
                 seq('->', $.type),
