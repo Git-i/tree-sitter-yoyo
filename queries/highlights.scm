@@ -54,3 +54,4 @@
 (union_decl .(identifier)@type)
 (union_decl (_) (identifier)@constant)
 (cond_extract_stat (identifier)@variable)
+(call_expr (expression (binary_expr (expression) (expression (scope_expr (name_expr)@function .)))))

@@ -121,8 +121,8 @@ module.exports = grammar({
             $.integer_literal,
             $.float_literal,
             $.bool_literal,
-            $.name_expr,
             $.null_literal,
+            $.name_expr,
             $.tuple_literal,
             $.group_expr,
             $.generic_name_expr,
@@ -183,9 +183,13 @@ module.exports = grammar({
             choice('-', '*', '&', '!', seq('&', 'mut')),
             $.expression
         ),
-        string: $ => /\".*\"/,
+        str_escape: $ => /\\./,
+        str_capture: $ => seq("${", $.expression, "}"),
+        str_text: $ => /[^\\\"$]+/,
+        string: $ => seq("\"", repeat(choice($.str_escape, $.str_capture, $.str_text)), "\""),
         char_literal: $ => /\'.\'/,
         bool_literal: $ => choice('false', 'true'),
+        null_literal: $ => "null",
         name_expr: $ => $.identifier,
         cast_expr: $ => prec(12, seq($.expression, 'as', $.type)),
         generic_name_expr: $ => seq($.identifier, $._generic_args),
@@ -196,7 +200,6 @@ module.exports = grammar({
         sub_expr: $ => prec(13, seq($.expression, '[', $.expression, ']')),
         integer_literal: $ => /\d+/,
         float_literal: $ => /\d+\.\d+/,
-        null_literal: $ => "null",
         tuple_literal: $ => seq('(', 
             $.expression, 
             repeat1(seq(',', $.expression)), 
@@ -206,7 +209,7 @@ module.exports = grammar({
         obj_literal: $ => seq(choice($.name_expr, $.generic_name_expr, $.scope_expr),
             '{', 
             optional(seq(
-                $._obj_lit_item, optional(seq(',', $._obj_lit_item))
+                $._obj_lit_item, repeat(seq(',', $._obj_lit_item))
             )),
             '}'
         ),
@@ -230,7 +233,9 @@ module.exports = grammar({
             $.view_muttype,
             $.gc_reftype,
             $.generic_name_expr,
+            $.discard_type,
             $.scope_expr),
+        discard_type: $ => '_',
         primitivetype: $ => choice('i8', 'i16', 'i32', 'i64', 'u8', 'u16', 'u32', 'u64', 'f32', 'f64'),
         arraytype: $ => seq('[', $.type, optional(seq(';', $.integer_literal)), ']'),
         grouptype: $ => seq('(', $.type, ')'),

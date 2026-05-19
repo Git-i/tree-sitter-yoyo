@@ -1090,6 +1090,44 @@
     }
   },
   {
+    "type": "str_capture",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "str_capture",
+          "named": true
+        },
+        {
+          "type": "str_escape",
+          "named": true
+        },
+        {
+          "type": "str_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sub_expr",
     "named": true,
     "fields": {},
@@ -1144,6 +1182,10 @@
       "types": [
         {
           "type": "arraytype",
+          "named": true
+        },
+        {
+          "type": "discard_type",
           "named": true
         },
         {
@@ -1399,7 +1441,15 @@
     "named": false
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "#(",
+    "named": false
+  },
+  {
+    "type": "${",
     "named": false
   },
   {
@@ -1571,6 +1621,10 @@
     "named": false
   },
   {
+    "type": "discard_type",
+    "named": true
+  },
+  {
     "type": "domain_annot",
     "named": true
   },
@@ -1676,7 +1730,11 @@
     "named": false
   },
   {
-    "type": "string",
+    "type": "str_escape",
+    "named": true
+  },
+  {
+    "type": "str_text",
     "named": true
   },
   {
